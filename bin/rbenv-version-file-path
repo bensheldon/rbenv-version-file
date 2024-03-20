@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Looks for the path of a .rbenv-version
+
+[ -n "$RBENV_DEBUG" ] && set -x
+
+find_rbenv_version_file_path() {
+  local root="$1"
+  while [ -n "$root" ]; do
+    if [ -e "${root}/.rbenv-version" ]; then
+      echo "${root}/.rbenv-version"
+      exit
+    fi
+    root="${root%/*}"
+  done
+}
+
+find_rbenv_version_file_path "$PWD"
